@@ -1,0 +1,33 @@
+{
+  "name": "coco-factory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haniwa2021/coco-factory.git"
+  },
+  "author": "hani",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/haniwa2021/coco-factory/issues"
+  },
+  "homepage": "https://github.com/haniwa2021/coco-factory#readme",
+  "private": true,
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.5.0",
+    "fibers": "^5.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.4.3",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.2.0",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {}
+}
