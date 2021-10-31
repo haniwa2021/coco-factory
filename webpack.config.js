@@ -1,22 +1,22 @@
-const MODE = "production";
-const enableSourceMap = MODE === "development";
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+// production モード以外の場合、変数 enabledSourceMap は true
+const enabledSourceMap = process.env.NODE_ENV !== "production";
 
 module.exports = {
   entry: "./src/index.js",
-  mode: MODE,
-  // devtool: "source-map",
+  devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "js/main.js",
+    // publicPath: "",
   },
   module: {
     rules: [
       {
-        test: /\.(css|scss|sass)/,
+        test: /\.(css|scss|sass)$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -24,8 +24,29 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              // url: false,
-              sourceMap: enableSourceMap,
+              sourceMap: enabledSourceMap,
+              importLoaders: 2,
+              // 0 => no loaders (default);
+              // 1 => postcss-loader;
+              // 2 => postcss-loader, sass-loader
+            },
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: enabledSourceMap,
+              postcssOptions: {
+                plugins: [
+                  [
+                    "css-declaration-sorter",
+                    {
+                      order: "smacss",
+                    },
+                  ],
+                  ["postcss-sort-media-queries", { sort: "mobile-first" }],
+                  "autoprefixer",
+                ],
+              },
             },
           },
           {
@@ -35,20 +56,42 @@ module.exports = {
               sassOptions: {
                 fiber: require(`fibers`),
               },
-              sourceMap: enableSourceMap,
+              sourceMap: enabledSourceMap,
             },
           },
+        ],
+      },
+      {
+        // 対象となるファイルの拡張子
+        test: /\.(gif|png|jpe?g|svg|eot|wof|woff|ttf)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "images/[name][ext]",
+        },
+        use: [
+          // {
+          //   //画像を出力フォルダーにコピーするローダー
+          //   loader: "file-loader",
+          //   options: {
+          //     // 画像ファイルの名前とパスの設定
+          //     name: "[name].[ext]",
+          //     outputPath: "images",
+          //     // publicPath: "./images",
+          //   },
+          // },
         ],
       },
     ],
   },
   plugins: [
+    new CleanWebpackPlugin({
+      // cleanStaleWebpackAssets: false,
+    }),
     new MiniCssExtractPlugin({
       filename: "./css/main.css",
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-    new CleanWebpackPlugin(),
   ],
 };

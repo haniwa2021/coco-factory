@@ -1,0 +1,57 @@
+$p_color: green;
+$p_bg_color: yellow;
+
+* {
+  color: $p_color;
+  background-color: $p_bg_color;
+}
+.test-img {
+  position: relative;
+  background-image: url("../images/cat.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 10;
+  width: 200px;
+  height: 200px;
+}
+::placeholder {
+  color: gray;
+}
+.foo {
+  display: block;
+  z-index: 1;
+  animation: none;
+  color: #c55;
+  border: 0;
+}
+
+@media screen and (max-width: 640px) {
+  .head {
+    color: #cfcfcf;
+  }
+}
+@media screen and (max-width: 768px) {
+  .footer {
+    color: #cfcfcf;
+  }
+}
+@media screen and (max-width: 640px) {
+  .main {
+    color: #cfcfcf;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .mobile-first {
+    color: #cfcfcf;
+  }
+}
+@media screen and (min-width: 640px) {
+  .mobile-first {
+    color: #cfcfcf;
+  }
+}
+@media screen and (max-width: 640px) {
+  .footer {
+    color: #cfcfcf;
+  }
+}
