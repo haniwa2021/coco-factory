@@ -1,3 +1,1 @@
-export default () => {
-  console.log("hello, js!");
-};
+import "../css/main.scss";

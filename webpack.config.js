@@ -1,17 +1,18 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 // production モード以外の場合、変数 enabledSourceMap は true
 const enabledSourceMap = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/js/main.js",
   devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "./dist"),
-    filename: "js/main.js",
-    // publicPath: "",
+    filename: "js/[name].js",
+    // target: "web",
   },
   module: {
     rules: [
@@ -62,11 +63,10 @@ module.exports = {
         ],
       },
       {
-        // 対象となるファイルの拡張子
-        test: /\.(gif|png|jpe?g|svg|eot|wof|woff|ttf)$/i,
+        test: /\.(gif|png|jpe?g|svg|eot|wof|woff|ttf)$/,
         type: "asset/resource",
         generator: {
-          filename: "images/[name][ext]",
+          filename: "./images/[name][ext]",
         },
         use: [
           // {
@@ -92,7 +92,13 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      alwaysWriteToDisk: true,
     }),
+    new HtmlWebpackHarddiskPlugin(),
   ],
-  devServer: {},
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "dist"),
+    },
+  },
 };
