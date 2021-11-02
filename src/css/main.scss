@@ -2,6 +2,22 @@ body {
   font-family: "Noto Sans JP", sans-serif;
 }
 
+.btn-v {
+  display: inline-block;
+  border: 1px solid #111;
+  padding: 20px;
+  &:hover {
+    background: pink;
+    & > a {
+      color: #fff;
+    }
+  }
+  & > a {
+    text-decoration: none;
+    color: #000;
+  }
+}
 .sec-title {
   font-family: "Parisienne", cursive;
+  font-size: 2em;
 }
