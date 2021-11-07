@@ -1,0 +1,1 @@
+{"version":3,"file":"js/sub.js","mappings":";;;;;AAAA","sources":["webpack://coco-factory/./src/js/sub.js"],"sourcesContent":["console.log(\"This is sub.js\");\r\n"],"names":[],"sourceRoot":""}

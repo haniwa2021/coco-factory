@@ -7,17 +7,27 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const enabledSourceMap = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  entry: "./src/js/main.js",
+  entry: {
+    main: "./src/js/main.js",
+    sub: "./src/js/sub.js",
+  },
   devtool: "source-map",
+  resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "src"),
+    },
+  },
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "dist"),
     filename: "js/[name].js",
-    // target: "web",
+    assetModuleFilename: "images/[hash][ext]",
+    publicPath: "/",
   },
   module: {
     rules: [
       {
         test: /\.(css|scss|sass)$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -63,23 +73,23 @@ module.exports = {
         ],
       },
       {
-        test: /\.(gif|png|jpe?g|svg|eot|wof|woff|ttf)$/,
+        test: /\.(gif|png|jpe?g|svg|eot|wof|woff|ttf)$/i,
         type: "asset/resource",
         generator: {
-          filename: "./images/[name][ext]",
+          filename: "images/[name][ext]",
         },
-        use: [
-          // {
-          //   //画像を出力フォルダーにコピーするローダー
-          //   loader: "file-loader",
-          //   options: {
-          //     // 画像ファイルの名前とパスの設定
-          //     name: "[name].[ext]",
-          //     outputPath: "images",
-          //     // publicPath: "./images",
-          //   },
-          // },
-        ],
+        // use: [
+        // {
+        //   //画像を出力フォルダーにコピーするローダー
+        //   loader: "file-loader",
+        //   options: {
+        //     // 画像ファイルの名前とパスの設定
+        //     name: "[name].[ext]",
+        //     outputPath: "images",
+        //     // publicPath: "./images",
+        //   },
+        // },
+        // ],
       },
     ],
   },
@@ -88,7 +98,7 @@ module.exports = {
       // cleanStaleWebpackAssets: false,
     }),
     new MiniCssExtractPlugin({
-      filename: "./css/main.css",
+      filename: "./css/[name].css",
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",

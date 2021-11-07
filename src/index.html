@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link href="https://cdn.skypack.dev/sanitize.css" rel="stylesheet" />
-    <link rel="stylesheet" href="dist/style.css" />
+    <link rel="stylesheet" href="dist/main.css" />
   </head>
   <body>
     <header>
@@ -48,7 +48,9 @@
           つくります。
         </p>
         <div class="btn-v lead-btn"><a href="#">お店の紹介</a></div>
-        <div class="lead_img"><img src="./images/asset 13.jpeg" alt="" /></div>
+        <div class="lead_img">
+          <img src="<%= require('./images/asset 13.jpeg') %>" alt="" />
+        </div>
       </article>
       <section>
         <h2 class="sec-title">Menu</h2>
@@ -61,6 +63,5 @@
       </article>
     </main>
     <footer></footer>
-    <script src="./js/index.js"></script>
   </body>
 </html>
